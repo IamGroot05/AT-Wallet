@@ -1,42 +1,54 @@
-<app-navbar></app-navbar>
+<app-navbar [showHistoryflag]="showhistory" (newHistoryflag)="setHistoryflag($event)"  [showWalletflag]="walletFlag" (newWalletflag)="setWalletflag($event)"></app-navbar>
 
-<div class="wallet-container text-center">
+
+<div *ngIf="walletFlag" class="wallet-container text-center">
+    <span class="close-btn" (click)="closeWallet()" style="float:right;position:unset">&times;</span>
     <div class="amount-box text-center">
-        <img src="https://lh3.googleusercontent.com/ohLHGNvMvQjOcmRpL4rjS3YQlcpO0D_80jJpJ-QA7-fQln9p3n7BAnqu3mxQ6kI4Sw" alt="wallet">
+        <img src="/assets/media/noun-wallet-104007.svg" alt="wallet">
         <p>Total Balance</p>
         <p class="amount">₹{{ balance }}</p>
     </div>
 
     <div class="btn-group text-center">
-        <button type="button" class="btn btn-outline-light">Add Money</button>
-        <button type="button" class="btn btn-outline-light">Widthdraw</button>
+        <button type="button"  (click)="addMoneyflag()" class="btn">Add Money</button>
+        <button type="button" (click)="withdrawFlag()" class="btn btn-right">Widthdraw</button>
         </div>
 
-        <div class="txn-history">
+        <div *ngIf="showhistory" class="txn-history">
             <p><b>History</b></p>
+            <div class="scroll-txn">
             <div *ngFor="let transaction of transactions">
                 <div *ngIf="transaction.type=='debit'">
-                      <p class="txn-list">{{ transaction.item }}<span class="debit-amount">-{{ transaction.amount }}</span></p>
+                      <p class="txn-list">{{ transaction.item }}<span class="debit-amount">-₹{{ transaction.amount }}</span><span class="txn-center">{{ transaction.date }}</span></p>
                 </div>
 
                 <div *ngIf="transaction.type=='credit'">
-                       <p class="txn-list">{{ transaction.item }}<span class="credit-amount">+$300</span></p>
-                </div>       
+                       <p class="txn-list">{{ transaction.item }}<span class="credit-amount">+₹{{ transaction.amount }}</span></p>
+                </div>   
+            </div>    
          </div>
         </div>
-        <form (submit)="makePurchase(+purchaseAmount.value,purchaseItem.value)">
-            <label for="purchaseAmount">Purchase Amount:</label>
-            <input type="number" id="purchaseAmount" #purchaseAmount required>
-            <label for="purchaseItem">Purchase Item:</label>
-            <input type="text" id="purchaseItem" #purchaseItem required>
-            <button type="submit">Make Purchase</button>
+
+      <div *ngIf="withdrawflag" class="add-form">
+        <form [formGroup] = "withdrawForm" (submit)="makePurchase(+purchaseAmount.value,purchaseItem.value)">
+            <label for="purchaseAmount">Purchase Amount</label>
+            <input type="number" id="purchaseAmount" placeholder="Withdraw amount" [min]="1" #purchaseAmount formControlName="purchaseAmount" required>
+            <span *ngIf="wrongPurchaseAmount" class="valid-msg">Please Enter a Valid Amount more than 0.</span>
+            <span *ngIf="insufficientFlag" class="valid-msg">Wallet Balance is not Sufficient </span>
+            <label for="purchaseItem">Purchase Item</label>
+            <input type="text" id="purchaseItem" placeholder="Enter item" [maxlength]="25" #purchaseItem  formControlName="purchaseItem" required>
+            <button class="form-btn" type="submit" >Make Purchase</button>
           </form>
-          
-          <form (submit)="addMoney(+moneyAmount.value)">
-            <label for="moneyAmount">Add Money:</label>
-            <input type="number" id="moneyAmount" #moneyAmount required>
-            <button type="submit">Add Money</button>
+      </div>   
+
+      <div *ngIf="addmoneyFlag" class="withdraw-form">
+          <form (submit)="addMoney(+moneyAmount.value)" [formGroup]="minValidator">
+            <label for="moneyAmount">Add Money</label>
+            <input type="number" id="moneyAmount" [min]="1" placeholder="Enter amount" #moneyAmount formControlName="amount" required>
+             <div *ngIf="wrongCredintial"><span class="valid-msg">Please Enter a Valid Amount more than 0</span></div>
+            <button class="form-btn" type="submit">Add Money</button>
           </form>
+      </div>    
 </div>
 
   

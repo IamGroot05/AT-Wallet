@@ -1,18 +1,23 @@
 <div class="alert alert-danger" *ngIf="auth.showLogoutWarningMessage" role="alert" >
-    <span><span><img src="assets/media/738.png" alt=""></span> Please logout first</span>
+  <span><span><img src="assets/media/738.png" alt=""></span> Please logout first <div class="close-btn"><span (click)="closeButton()">&times;</span></div></span>
 </div>
 
 <nav class="navbar">
-  <div class="max-width">
-        <div class="home-title">
-            @
-            <span>Wallet</span>
-            
-          </div>
-      <ul class="menu">
-        <li><a href="#home" class="menu-btn">Wallet</a></li>
-        <li><a href="#summary" class="menu-btn">History</a></li>
+<div class="max-width">
+      <div class="home-title">
+          @
+          <span>Wallet</span>
+          
+        </div>
+    <ul class="menu" *ngIf="auth.validateUserTocken">
+        <!-- USING CHECKBOX HACK -->
+      <input type="checkbox" id="checkbox_toggle" />
+      <label for="checkbox_toggle" class="hamburger">&#9776;</label>
+      <div class="menu-inner">
+        <li><a routerLink="/dashboard" (click)="showWallet()" class="menu-btn">Wallet</a></li>
+        <li><a routerLink="/dashboard" (click)="showHistory()" class="menu-btn">History</a></li>
         <li><a class="menu-btn" (click)="logOut()"> <i class="fa fa-sign-out" style="font-size:34px"></i></a></li>
-       </ul>
-     </div>
+      </div>
+     </ul>
+   </div>
 </nav>

@@ -1,18 +1,23 @@
 
 .wallet-container {
-	background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6)),url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjOvSperRYjHH9-EHlKZJBfwvXy4rJpyerzHQsnp8DuuycYU5_);
-		width: 620px;
-		color: #fff;
-		font-size: 15px;
-		padding: 20px 20px 0;
-		top: 55%;
-		left: 50%;
-		transform: translate(-50%,-50%);
-		position: absolute;
+	position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 400px;
+    padding: 40px;
+    transform: translate(-50%, -50%);
+	color: #ccc;
+    background: rgba(0,0,0,.5);
+    box-sizing: border-box;
+    box-shadow: 0 15px 25px rgba(0,0,0,.6);
+    border-radius: 10px;
   
   
 }
 
+form{
+	margin-top:20px ;
+}
 
 
 .fa-user {
@@ -31,7 +36,8 @@
     top:5px;
 }
 .amount-box img {
-	width: 50px;
+	width: 6em;
+	filter: invert(0.5) sepia(1) saturate(5) hue-rotate(175deg)
 }
 
 .amount {
@@ -41,6 +47,21 @@
 .amount-box p {
 	margin-top: 10px;
 	margin-bottom: -10px;
+}
+
+.btn{
+	margin: 20px 0;
+	border-radius: 5px !important;
+	font-size: 15px;
+	height: 30px;
+	width: 43%;
+	background-color: #43a443;
+	border-color: cadetblue;
+	color: white;
+  }
+.btn-right{
+	background-color: rgb(206, 51, 51);
+	border-color: brown;
 }
 
 .btn-group {
@@ -57,17 +78,32 @@
 	text-align: left;
 }
 
+.scroll-txn{
+	overflow-y: scroll;
+	height: 200px;
+}
+.txn-scroll{
+	overflow-y: scroll;
+}
 .txn-list {
 	background-color: #fff;
 	padding: 12px 10px; 
 	color: #777;
 	font-size: 14px;
 	margin: 7px 0;
+	
 }
 
+.txn-center{
+	display: block;
+	align-items: center;
+}
 .debit-amount {
 	color: red;
 	float: right;
+	font-size: 15px;
+    top: 50%;
+    position: relative;
 }
 
 .credit-amount {
@@ -87,9 +123,55 @@
 	font-size: 12px;
 }
 
+input[type=number] {
+	-moz-appearance: textfield;
+  }
+input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid #fff;
+    outline: none;
+    background: transparent;
+}	
+
+label {
+    padding: 10px 0;
+    font-size: 18px;
+	font-family: sans-serif;
+	font-weight: 600;
+    color: #43acd6;
+    pointer-events: none;
+    transition: .5s;
+  }
+  
+
+.form-btn{
+	background-color:rgba(66, 153, 225, 0.6);;
+	width: 20em;
+	height: 32px;
+	margin-left: 7%;
+    background-repeat: no-repeat;
+	border: 2px solid #0d3466;
+	border-radius: 8px !important;
+    cursor: pointer;
+    
+}  
+
+.valid-msg{
+	position: relative;
+	bottom: 23px;
+	font-family: 'Courier New', Courier, monospace;
+	font-size: small;
+	color: rgb(206, 51, 51);
+}
+
 @media screen and (max-width: 800px){
   .wallet-container {
-    height: 115%;
+    height: 100%;
     bottom: 20px;
     margin-top: 100px;
   }

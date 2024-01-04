@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { loginModel } from './login.module';
+import { loginModel } from '../app.module';
 import { AuthService } from '../services/auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -24,11 +24,14 @@ export class loginComponent {
     ngOnInit() {
         //let _tocken = JSON.parse
         if (this.auth.validateUserTocken){
+            console.log(this.router.url)
+            if(String(this.router.url).replace(/\?/g, '') == "/loginreturnUrl=%2Fdashboard"){
             console.log("logout first")
             this.auth.showLogoutWarningMessage = true
+            }  
             return this.router.navigate(['/dashboard'])
-            
         }
+       
         return false
     }
 
@@ -42,5 +45,9 @@ export class loginComponent {
             this.showLoginWarningMessage = true;
         }
 
+    }
+
+    closeButton(){
+        this.showLoginWarningMessage = false;
     }
 }
